@@ -1,0 +1,8 @@
+artifacts
+.idea
+/MvnBat/res.txt
+target
+/logs
+/JetBrainsProjectsjava_webservice_jpa_jta_robotlogslog.txt
+/JetBrainsProjectsjava_webservice_jpa_jta_robotlogslog4j.appender.dest.ImmediateFlush=true
+/robot.iml
