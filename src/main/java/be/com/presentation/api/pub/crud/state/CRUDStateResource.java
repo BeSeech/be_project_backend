@@ -71,6 +71,7 @@ public class CRUDStateResource
 /*        if (!securityContext.isSecure()) {
             throw new WebApplicationException(401);
         }*/
+        logger.debug("Get state request with uid: " + uid);
         StateBean stateBean = stateBeanService.getStateBean(uid);
 
         if (stateBean == null) {

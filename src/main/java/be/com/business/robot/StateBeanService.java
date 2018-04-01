@@ -7,30 +7,35 @@ import javax.annotation.PreDestroy;
 import javax.ejb.*;
 import java.util.HashMap;
 
+import be.com.presentation.api.pub.crud.state.CRUDStateResource;
 import io.reactivex.Observable;
+import org.apache.log4j.Logger;
 
 @Singleton
 public class StateBeanService
 {
     private HashMap<String, StateBean> stateBeanMap = new HashMap<String, StateBean>();
 
+    private static final Logger logger = Logger.getLogger(StateBeanService.class.getPackage().getName());
+
     @EJB
     StateCRUDService stateCRUDService;
 
-    private boolean isStateBeanInCash(String id)
+    private boolean isStateBeanInCash(String uid)
     {
-        return (stateBeanMap.getOrDefault(id, null) != null);
+        return (stateBeanMap.getOrDefault(uid, null) != null);
     }
 
     public StateBean getStateBean(String uid)
     {
+        logger.debug("StateBeanService.getStateBean(" + uid + ")");
         if (!isStateBeanInCash(uid)) {
             StateBean stateBean = stateCRUDService.getStateBean(uid);
             if (stateBean != null) {
                 stateBeanMap.put(stateBean.getUid(), stateBean);
             }
         }
-
+        logger.debug("StateBeanService.getStateBean return: " + stateBeanMap.getOrDefault(uid, null));
         return stateBeanMap.getOrDefault(uid, null);
     }
 
@@ -90,9 +95,9 @@ public class StateBeanService
 
     public Observable<StateBean> getStateBeans()
     {
-        Observable<StateBean> obs =  Observable.fromArray(stateCRUDService.getStatesFromDB())
-                .flatMapIterable( list -> list )
-                .map( state -> StateCRUDService.getStateBean(state));
+        Observable<StateBean> obs = Observable.fromArray(stateCRUDService.getStatesFromDB())
+                .flatMapIterable(list -> list)
+                .map(state -> StateCRUDService.getStateBean(state));
         return obs;
     }
 }

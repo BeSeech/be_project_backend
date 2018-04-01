@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "state", schema = "PUBLIC")
+@Table(name = "\"state\"", schema = "PUBLIC")
 @NamedQueries({
         @NamedQuery(
                 name = "State.findByUid",
@@ -23,13 +23,13 @@ import java.io.Serializable;
 public class State implements Serializable
 {
     @Id
-    @Column(name = "uid")
+    @Column(name = "\"uid\"")
     private String uid;
 
-    @Column(name = "name")
+    @Column(name = "\"name\"")
     private String name;
 
-    @Column(name = "color")
+    @Column(name = "\"color\"")
     private String color;
 
     public String getUid()

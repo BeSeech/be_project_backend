@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 @Singleton
@@ -14,6 +15,13 @@ public class CRUDResource
 
     @EJB
     CRUDStateResource CRUDStateResource;
+
+    @Path("/info")
+    @GET
+    public String Test()
+    {
+        return this.getClass().getName();
+    }
 
     @Path("/states")
     public CRUDStateResource getCRUDStateResource()

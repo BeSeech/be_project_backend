@@ -20,6 +20,13 @@ public class PublicResource
     @EJB
     be.com.presentation.api.pub.crud.CRUDResource CRUDResource;
 
+    @Path("/info")
+    @GET
+    public String Test()
+    {
+        return this.getClass().getName();
+    }
+
     @Path("/crud")
     public CRUDResource getCRUDResource()
     {
